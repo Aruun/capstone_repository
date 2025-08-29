@@ -4,8 +4,10 @@ pipeline {
     environment {
         AWS_HOST = "ubuntu@3.81.148.200"
         AZURE_HOST = "azureuser@52.191.78.102"
-        SSH_KEY = credentials('vm-ssh-key')   // Jenkins SSH private key credential
+        SSH_KEY_AWS = credentials('vm-ssh-key')   // Jenkins SSH private key credential
+        SSH_KEY_AZURE = credentials('vm-ssh-key-azure')
     }
+
 
     stages {
         stage('Checkout Code') {
