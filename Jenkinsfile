@@ -30,7 +30,7 @@ pipeline {
 
         stage('Deploy to Azure VM') {
             steps {
-                sshagent(['vm-ssh-key']) {
+                sshagent(['vm-ssh-key-azure']) {
                     sh """
                         scp -o StrictHostKeyChecking=no index-azure.html $AZURE_HOST:/tmp/index.html
                         ssh -o StrictHostKeyChecking=no $AZURE_HOST 'sudo mv /tmp/index.html /var/www/html/index-azure.html && sudo systemctl restart nginx'
