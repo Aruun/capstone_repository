@@ -21,8 +21,8 @@ pipeline {
             steps {
                 sshagent(['vm-ssh-key']) {
                     sh """
-                        scp -o StrictHostKeyChecking=no index-aws.html $AWS_HOST:/tmp/index.html
-                        ssh -o StrictHostKeyChecking=no $AWS_HOST 'sudo mv /tmp/index.html /var/www/html/index-aws.html && sudo systemctl restart nginx'
+                        scp -o StrictHostKeyChecking=no index-aws.html $AWS_HOST:/tmp/index-aws.html
+                        ssh -o StrictHostKeyChecking=no $AWS_HOST 'sudo mv /tmp/index-aws.html /var/www/html/index-aws.html && sudo systemctl restart nginx'
                     """
                 }
             }
@@ -30,10 +30,10 @@ pipeline {
 
         stage('Deploy to Azure VM') {
             steps {
-                sshagent(['vm-ssh-key-azure']) {
+                sshagent(['vm-ssh-key']) {
                     sh """
-                        scp -o StrictHostKeyChecking=no index-azure.html $AZURE_HOST:/tmp/index.html
-                        ssh -o StrictHostKeyChecking=no $AZURE_HOST 'sudo mv /tmp/index.html /var/www/html/index-azure.html && sudo systemctl restart nginx'
+                        scp -o StrictHostKeyChecking=no index-azure.html $AZURE_HOST:/tmp/index-azure.html
+                        ssh -o StrictHostKeyChecking=no $AZURE_HOST 'sudo mv /tmp/index-azure.html /var/www/html/index-azure.html && sudo systemctl restart nginx'
                     """
                 }
             }
